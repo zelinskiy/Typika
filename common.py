@@ -1,54 +1,63 @@
-class Common:
-    def __init__(self, short=False):
-        self.short = short
+from typika_module import TypikaModule
+import util
+
+class Common(TypikaModule):
+    def __init__(self, short, priest):
+        super().__init__(short, priest)
+
+    def load(self, fname):
+        path = "texts/slav/common/"
+        if self.short:
+            path += "short/"
+        return util.load(path + fname + ".txt")
 
     def through_the_prayers_of_our_holy_fathers(self):
-        return "Through the prayers of our holy Fathers"
+        return self.load("through_the_prayers_of_our_holy_fathers")
 
     def glory_to_thee_our_God(self):
-        return "Glory,to THee, our God"
+        return self.load("glory_to_thee_our_God")
 
     def heavenly_king(self):
-        return "Heavenly King"
+        return self.load("heavenly_king")
 
     def our_father(self):
-        return "Our Father"
+        return self.load("our_father")
 
     def glory_and_now(self):
-        return "Glory, and now"
+        return self.load("glory_and_now")
 
     def trisagion(self):
-        return "Трисвятое"
+        return self.load("trisagion")
 
     def come_let_us_worship(self):
-        return "Приидите поклонимся"
+        return self.load("come_let_us_worship")
 
     def most_holy_trinity(self):
-        return "Пресвятая Троице"
+        return self.load("most_holy_trinity")
 
     def hail_Mary(self):
-        return "Богородице Дева"
+        return self.load("hail_Mary")
 
     def more_honourable_cherubim(self):
-        return "Честнейшую Херувим"
+        return self.load("more_honourable_cherubim")
 
     def kyrie_eleison_40(self):
-        return "Kyrie, eleison (40)"
+        return self.load("kyrie_eleison_40")
 
     def kyrie_eleison_12(self):
-        return "Kyrie, eleison (12)"
+        return self.load("kyrie_eleison_12")
 
     def kyrie_eleison_3(self):
-        return "Kyrie, eleison (3)"
+        return self.load("kyrie_eleison_3")
 
     def ephrem_prayer(self):
-        return "Господи, и Владыко живота моего."
+        return self.load("ephrem_prayer")
 
     def let_lords_name_be_blessed(self):
-        return "Буди имя Господне (3)"
+        return self.load("let_lords_name_be_blessed")
 
     def axios_estin(self):
-        return "Достойно есть"
+        return self.load("axios_estin")
 
     def alleluia(self):
-        return "Alleluia (3)"
+        return self.load("alleluia")

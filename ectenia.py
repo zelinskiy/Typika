@@ -1,19 +1,10 @@
 import common
+from typika_module import TypikaModule
 
-class Ectenia:
-    def __init__(self, priest=False, short=False):
-        self.common = common.Common()
-        self.priest = priest
-        self._short = short
-
-    @property
-    def short(self):
-        return self._short
-
-    @short.setter
-    def set_short(self, val):
-        self._short = val
-        self.common.short = val
+class Ectenia(TypikaModule):
+    def __init__(self, short, priest):
+        super().__init__(short, priest)
+        self.common = common.Common(short, priest)
 
     def great(self):
         return self.common.kyrie_eleison_12()

@@ -3,7 +3,7 @@ from ectenia import Ectenia
 from psalter import Psalter
 from typika_sign import TypikaSign
 from util import *
-
+from typika_module import TypikaModule
 
 
 # 2 kathismas at Matins
@@ -71,18 +71,16 @@ PSALTER_SCHEME_3 = {
     }
 }
 
-class VespersBuilder:
-
-    def __init__(self):
+class VespersBuilder(TypikaModule):
+    def __init__(self, short, priest):
+        super().__init__(short, priest)
         # Heavenly King, Trisagion, Our Father, etc.
-        self.short_common = False
         self.lent = False
         self.alleluia = False
         self.typika_sign = TypikaSign.Ferial
-        self.priest = False
-        self.common = Common()
-        self.ectenia = Ectenia()
-        self.psalter = Psalter()
+        self.common = Common(short, priest)
+        self.ectenia = Ectenia(short, priest)
+        self.psalter = Psalter(short, priest)
         self.day = "Sat"
 
     def load(self, path):
@@ -217,7 +215,6 @@ class VespersBuilder:
 
 
     def build(self):
-        shrt = self.short_common
         sequence = [
             self.opening(),
             self.psalm103(),

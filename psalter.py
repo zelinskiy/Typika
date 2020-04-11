@@ -1,4 +1,5 @@
 from common import Common
+from typika_module import TypikaModule
 from util import *
 
 # notice the cathisma 17
@@ -80,11 +81,12 @@ def test_schemata():
     return True
 
 
-class Psalter:
+class Psalter(TypikaModule):
 
-    def __init__(self, short=False, show_numbers=False):
-        self.common = Common(short=short)
-        self.show_numbers = show_numbers
+    def __init__(self, short, priest):
+        super().__init__(short, priest)
+        self.common = Common(short, priest)
+        self.show_numbers = False
         self._psalms = []
         for i in range(1, 151):
             psalm = load("texts/slav/psalter/" + str(i) + ".txt")

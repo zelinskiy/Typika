@@ -12,3 +12,13 @@ def flatten(l):
             yield from flatten(el)
         else:
             yield el
+
+def traverse_props(obj, f, class_, attr_name, visited):
+    f(obj, getattr(obj, attr_name))
+    visited.append(id(obj))
+    for child in vars(obj):
+        x = getattr(obj, child)
+        if x is not None and isinstance(x, class_):
+            if getattr(x, attr_name) is not None and id(x) not in visited:
+                traverse_props(x, f, class_, attr_name, visited)
+    return visited

@@ -7,7 +7,6 @@ from util import traverse_props
 # Processing tags: <rub>, <title>, <comment>
 # If priest
 # Actual psalm numbers (may start from 1, 2, 3)
-# ShotrableMixin
 
 
 

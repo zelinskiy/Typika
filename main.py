@@ -1,4 +1,4 @@
-
+from small_compline import SmallComplineBuilder
 from vespers import VespersBuilder
 from typika_module import TypikaModule
 from util import traverse_props
@@ -11,9 +11,5 @@ from util import traverse_props
 
 
 if __name__ == "__main__":
-    vb = VespersBuilder(short=True, priest=False)
+    vb = SmallComplineBuilder(short=True, priest=False)
     print(vb.build())
-    traverse_props(vb, print, TypikaModule, "short", [])
-    vb.set_short(False)
-    print()
-    traverse_props(vb, print, TypikaModule, "short", [])

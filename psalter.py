@@ -98,7 +98,7 @@ class Psalter(TypikaModule):
 
     def psalm(self, n):
         res = [self.psalm_title(n)]
-        for verse in self._psalms[n + 1]:
+        for verse in self._psalms[n - 1]:
             res.append(verse)
         return "\n".join(res)
 

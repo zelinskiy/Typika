@@ -211,9 +211,6 @@ class VespersBuilder(TypikaModule):
             ]
         return sequence
 
-
-
-
     def build(self):
         sequence = [
             self.opening(),

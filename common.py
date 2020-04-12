@@ -61,3 +61,37 @@ class Common(TypikaModule):
 
     def alleluia(self):
         return self.load("alleluia")
+
+    def credo(self):
+        return "Верую"
+
+    def for_all_time(self):
+        return "Иже на всякое время"
+
+    # Трисвятое по Отче наш
+    def trisagion_our_father(self):
+        sequence = [
+            self.trisagion(),
+            self.glory_and_now(),
+            self.most_holy_trinity(),
+            self.kyrie_eleison_3(),
+            self.glory_and_now(),
+            self.our_father()
+        ]
+        return "\n".join(sequence)
+
+    # Начало обычное
+    def opening(self):
+        sequence = [
+            self.through_the_prayers_of_our_holy_fathers(),
+            self.glory_to_thee_our_God(), # or paschal troparion (3)
+            self.heavenly_king(), # if not paschal time
+            self.trisagion(),
+            self.glory_and_now(),
+            self.most_holy_trinity(),
+            self.kyrie_eleison_3(),
+            self.glory_and_now(),
+            self.our_father(),
+            self.kyrie_eleison_12(),
+        ]
+        return sequence

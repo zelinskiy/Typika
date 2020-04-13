@@ -95,3 +95,17 @@ class Common(TypikaModule):
             self.kyrie_eleison_12(),
         ]
         return sequence
+
+    # verse 2 must include also 3, 4 if there are
+    @staticmethod
+    def as_prokeimenon(v1a, v1b, v2):
+        v1 = v1a + " " + v1b,
+        res = [
+            v1,
+            v1,
+            v2,
+            v1,
+            v1a,
+            v1b
+        ]
+        return "\n".join([])

@@ -11,5 +11,5 @@ from util import traverse_props
 
 
 if __name__ == "__main__":
-    vb = SmallComplineBuilder(short=True, priest=False)
+    vb = VespersBuilder(short=True, priest=False)
     print(vb.build())

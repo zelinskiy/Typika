@@ -114,16 +114,4 @@ class Psalter(TypikaModule):
         ]
 
     def kathisma(self, n):
-        res = []
-        kathisma = KATHISMATA[n]
-        if n == 17:
-            res.append(self.psalm_title(118))
-            for vnum in kathisma:
-                res.append("\n".join(self.verse(118, vnum)))
-            res.append(self.stasis())
-        else:
-            for glory in kathisma:
-                for pnum in glory:
-                    res.append(self.psalm(pnum))
-                res.append(self.stasis())
-        return res
+        return KATHISMATA[n]

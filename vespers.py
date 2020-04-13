@@ -4,6 +4,7 @@ from psalter import Psalter
 from typika_sign import TypikaSign
 from util import *
 from typika_module import TypikaModule
+from weekday import Day
 
 
 # 2 kathismas at Matins
@@ -81,7 +82,7 @@ class VespersBuilder(TypikaModule):
         self.common = Common(short, priest)
         self.ectenia = Ectenia(short, priest)
         self.psalter = Psalter(short, priest)
-        self.day = "Sat"
+        self.day = Day.Sat
 
     def load(self, path):
         return load("texts/slav/horologion/vespers/" + path)
@@ -109,29 +110,84 @@ class VespersBuilder(TypikaModule):
     def kathismata(self):
         if True:
             scheme = PSALTER_SCHEME_1
-        elif True:
-            scheme = PSALTER_SCHEME_2
-        elif True:
-            scheme = PSALTER_SCHEME_3
+        # elif True:
+        #     scheme = PSALTER_SCHEME_2
+        # elif True:
+        #     scheme = PSALTER_SCHEME_3
 
-        kathismas = scheme[self.day]
+        kathismas = scheme[self.day.name]
         if len(kathismas) > 0:
-            return list(map(self.psalter.kathisma, kathismas))
+            res = []
+            for k in kathismas:
+                kathisma = self.psalter.kathisma(k)
+                for glory in kathisma:
+                    for ps in glory:
+                        print(glory, ps)
+                        res.append(self.psalter.psalm(ps))
+                    res.append(self.psalter.stasis())
+            print(res)
+            return "\n".join(flatten(res))
         else:
             return "NO PSALTER"
 
     # Стихиры на Господи, воззвах
     def stikhiras_lord_i_cried(self):
-        return "LORD I CRIED STIKHIRAS"
+        res = [
+            "Господи, Воззвах",
+            "Да исправится",
+            "Положи, Господи, хранение устом",
+            "Гласом моим ко господу воззвах (пс.141, 1-6)",
+            "Изведи из темницы",
+            "Стихира на 10 (если есть)",
+            "Мене ждут праведницы",
+            "Стихира на 9 (если есть)",
+            "Из глубины",
+            "Стихира на 8 (если есть)",
+            "Да будут уши",
+            "Стихира на 7 (если есть)",
+            "Аще беззакония",
+            "Стихира на 6 (если есть)",
+            "Имене ради",
+            "Стихира на 5",
+            "От стражи",
+            "Стихира на 4",
+            "Яко у Господа",
+            "Стихира на 3",
+            "Хвалите Господа",
+            "Стихира на 1",
+            "Яко утвердися",
+            "Стихира на 1"
+        ]
+        return "\n".join(res)
 
     def theotokion(self):
         return "O joyous Light"
 
     def prokeimenon(self):
         if self.lent and self.alleluia:
-            return "Alleluia verses"
+            if self.day == Day.Mon:
+                return Common.as_prokeimenon("verse 1(a) ",
+                    "verse 1(b)",
+                    "verse 2")
+            elif self.day in [Day.Tue, Day.Thu]:
+                return Common.as_prokeimenon("verse 1(a) ",
+                    "verse 1(b)",
+                    "verse 2")
+            elif self.day == Day.Wed:
+                return Common.as_prokeimenon("verse 1(a) ",
+                    "verse 1(b)",
+                    "verse 2")
+            else:
+                return "No prokeimenon"
         else:
-            return "Weekday prokeimenon"
+            if self.day == Day.Sun:
+                return Common.as_prokeimenon("Господь услышит мя,",
+                    "егда воззвати ми к нему",
+                    "Внегда призвати ми, услыша мя Бог правды моея.")
+            else:
+                return Common.as_prokeimenon("verse 1(a) ",
+                    "verse 1(b)",
+                    "verse 2")
 
     def paremias(self):
         if self.typika_sign > TypikaSign.Polyeleos:
@@ -145,12 +201,28 @@ class VespersBuilder(TypikaModule):
 
     # Стихиры на стиховне
     def aposticha(self):
-        res = "CURRENT APOSTICHA\n"
-        if self.day == "Sat":
-            res += "Lord reignst\n"
-        if self.typika_sign > TypikaSign.Polyeleos:
-            res += "Festal aposticha\n"
-        return res
+        res = None
+        if self.day == Day.Sat:
+            res = [
+                "Стихира 1",
+                "Господь воцарися",
+                "Стихира 2",
+                "Ибо утверди",
+                "Стихира 3",
+                "Дому твоему",
+                "Стихира 4"
+            ]
+        elif self.typika_sign > TypikaSign.Polyeleos:
+            res = "Festal stikheras"
+        else:
+            res = [
+                "Стихира 1",
+                "К тебе возведох",
+                "Стихира 2",
+                "Помилуй нас",
+                "Стихира 3"
+            ]
+        return "\n".join(res)
 
     # Богородичен
     def theotokion(self):
